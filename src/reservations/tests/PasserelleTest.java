@@ -1,3 +1,13 @@
+// ----------------------------------- À LIRE AVANT D'EFFECTUER LES TESTS !!!!!! -----------------------------------
+// Il est important d'adapter les différents paramètres des tests et adapter aux données de la base de données !!!!!
+// Par exemple :
+// Pour testConsulterReservation, j'ai pris jouault car dans ma base de donnée, jouault a fait 2 réservations.
+// -----------------------------------------------------------------------------------------------------------------
+// Possibilité de mettre en commentaire testCreerUtilisateur et testSupprimerUtilisateur 
+// Car sinon, cela crée et supprime, un utilisateur à chaque fois que l'on lance les tests
+// Ou alors effectuer les tests uniquement sur le test que l'on veut tester
+// -----------------------------------------------------------------------------------------------------------------
+
 package reservations.tests;
 
 import static org.junit.Assert.*;
@@ -25,7 +35,7 @@ public class PasserelleTest {
 		assertEquals("Test Passerelle.connecter", "Utilisateur authentifié.", msg);	
 	}
 
-	@Test
+	/* @Test
 	public void testCreerUtilisateur() {
 		Utilisateur unUtilisateur = new Utilisateur(0, 4, "yvesz", "", "yves.zenels@gmail.com");
 		String msg = Passerelle.creerUtilisateur("admin", "adminnnnnnnn", unUtilisateur);
@@ -37,12 +47,12 @@ public class PasserelleTest {
 		
 		unUtilisateur = new Utilisateur(0, 1, "yvesz", "", "yves.zenels@gmail.com");
 		msg = Passerelle.creerUtilisateur("admin", "admin", unUtilisateur);
-		assertEquals("Test Passerelle.creerUtilisateur", "Enregistrement effectué.", msg);
+		assertEquals("Test Passerelle.creerUtilisateur", "Enregistrement effectué ; un mail va être envoyé à l'utilisateur.", msg);
 		
 		unUtilisateur = new Utilisateur(0, 1, "yvesz", "", "yves.zenels@gmail.com");
 		msg = Passerelle.creerUtilisateur("admin", "admin", unUtilisateur);
 		assertEquals("Test Passerelle.creerUtilisateur", "Erreur : nom d'utilisateur déjà existant.", msg);	
-	}
+	} */
 
 	private static String FormaterDateHeure(Date uneDate, String unFormat) {
 		SimpleDateFormat leFormat = new SimpleDateFormat(unFormat);
@@ -55,11 +65,11 @@ public class PasserelleTest {
 		String msg = Passerelle.consulterReservations(unUtilisateur);
 		assertEquals("Erreur : authentification incorrecte.", msg);
 		
-		unUtilisateur = new Utilisateur(0, 0, "giboired", "passe", "");
+		unUtilisateur = new Utilisateur(0, 0, "paquet", "passe", "");
 		msg = Passerelle.consulterReservations(unUtilisateur);
 		assertEquals("Erreur : vous n'avez aucune réservation.", msg);
 		
-		unUtilisateur = new Utilisateur(0, 0, "jim", "passe", "");
+		unUtilisateur = new Utilisateur(0, 0, "jouault", "passe", "");
 		msg = Passerelle.consulterReservations(unUtilisateur);
 		assertEquals("Vous avez effectué 2 réservation(s).", msg);
 		assertEquals(2, unUtilisateur.getNbReservations());
@@ -68,13 +78,76 @@ public class PasserelleTest {
 		Reservation laReservation = unUtilisateur.getLaReservation(0);
 		assertEquals("Amphithéâtre", laReservation.getRoomName());		
 		assertEquals(0, laReservation.getStatus());	
-		assertEquals("2015-06-21 18:00:00", FormaterDateHeure(laReservation.getStartTime(), formatUS));
-		assertEquals("2015-06-22 00:00:00", FormaterDateHeure(laReservation.getEndTime(), formatUS));
+		assertEquals("2017-06-21 18:00:00", FormaterDateHeure(laReservation.getStartTime(), formatUS));
+		assertEquals("2017-06-22 00:00:00", FormaterDateHeure(laReservation.getEndTime(), formatUS));
 		
 		laReservation = unUtilisateur.getLaReservation(1);
 		assertEquals("Hall d'accueil", laReservation.getRoomName());		
 		assertEquals(4, laReservation.getStatus());	
-		assertEquals("2015-06-21 18:00:00", FormaterDateHeure(laReservation.getStartTime(), formatUS));
-		assertEquals("2015-06-22 00:00:00", FormaterDateHeure(laReservation.getEndTime(), formatUS));
+		assertEquals("2017-06-21 18:00:00", FormaterDateHeure(laReservation.getStartTime(), formatUS));
+		assertEquals("2017-06-22 00:00:00", FormaterDateHeure(laReservation.getEndTime(), formatUS));
 	}
+    
+	/* @Test
+	public void testConsulterSalles(){
+	    	
+    } */
+	
+	/* @Test
+	public void testAnnulerReservation(){
+    	
+    } */
+
+	/* @Test
+	public void testChangerDeMdp(){
+		Utilisateur unUtilisateur = new Utilisateur(125, 1, "yvesz", "passe", "yves.zenels@gmail.com");
+		String msg = Passerelle.changerDeMdp("yvesz", "test", "test", "test");
+		assertEquals("Test Passerelle.changerDeMdp", "Erreur : authentification incorrecte.", msg);
+		
+		msg = Passerelle.changerDeMdp("yvesz", "passe", "test", "tests");
+		assertEquals("Test Passerelle.changerDeMdp", "Erreur : le nouveau mot de passe et sa confirmation sont différents !", msg);
+		
+		msg = Passerelle.changerDeMdp("yvesz", "passe", "test", "test");
+		assertEquals("Test Passerelle.changerDeMdp", "Modification du mot de passe effectué ; Vous allez recevoir un mail avec votre nouveau mot de passe.", msg);
+    } */
+
+	/* @Test
+	public void testConfirmerReservation(){
+    	
+    } */
+
+	/* @Test
+	public void testDemanderMdp(){
+		Utilisateur unUtilisateur = new Utilisateur(125, 1, "yvesz", "passe", "yves.zenels@gmail.com");
+		String msg = Passerelle.demanderMdp("zenelsy");
+		assertEquals("Test Passerelle.demanderMdp", "Erreur : nom d'utilisateur inexistant.", msg);
+		
+		msg = Passerelle.demanderMdp("yvesz");
+		assertEquals("Test Passerelle.changerDeMdp", "Modification du mot de passe effectué ; Vous allez recevoir un mail avec votre nouveau mot de passe.", msg);	
+    } */
+
+	/* @Test
+	public void testSupprimerUtilisateur() {
+		Utilisateur unUtilisateur = new Utilisateur(0, 1, "yvesz", "", "yves.zenels@gmail.com");
+		String msg = Passerelle.supprimerUtilisateur("admin", "adminnnnnnnn", unUtilisateur);
+		assertEquals("Test Passerelle.supprimerUtilisateur", "Erreur : authentification incorrecte.", msg);
+		
+		unUtilisateur = new Utilisateur(0, 1, "yvesz", "", "yves.zenels@gmail.com");
+		msg = Passerelle.supprimerUtilisateur("admin", "admin", unUtilisateur);
+		assertEquals("Test Passerelle.supprimerUtilisateur", "Suppression effectué ; un mail va être envoyé à l'utilisateur.", msg);
+		
+		unUtilisateur = new Utilisateur(0, 1, "yvesz", "", "yves.zenels@gmail.com");
+		msg = Passerelle.supprimerUtilisateur("admin", "admin", unUtilisateur);
+		assertEquals("Test Passerelle.supprimerUtilisateur", "Erreur : nom d'utilisateur inexistant.", msg);	
+	} */
+
+	/* @Test
+	public void testTesterDigicodeBatiment(){
+    	
+    } */
+    
+	/* @Test
+	public void testTesterDigicodeSalle(){
+    	
+    } */
 }
