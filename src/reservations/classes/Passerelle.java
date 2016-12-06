@@ -209,4 +209,36 @@ public class Passerelle {
 			return msg;
 		}
     }
+    
+    /* public static String consulterSalles(){
+    	
+    } */
+    
+    /* public static String annulerReservation(String idReservation){
+    	
+    } */
+
+    /* public static String changerDeMdp(String nomUtilisateur, String mdpUtilisateur){
+    	
+    } */
+
+    /* public static String confirmerReservation(String idReservation){
+    	
+    } */
+
+    /* public static String demanderMdp(String nomUtilisateur, String mdpUtilisateur){
+    	
+    } */
+
+    /* public static String supprimerUtilisateur(String nomUtilisateur){
+    	
+    } */
+
+    /* public static String testerDigicodeBatiment(String unDigicode){
+    	
+    } */
+    
+    /* public static String testerDigicodeSalle(String unNumSalle, String unDigicode){
+    	
+    } */
 }
