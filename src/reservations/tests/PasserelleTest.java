@@ -88,10 +88,20 @@ public class PasserelleTest {
 		assertEquals("2017-06-22 00:00:00", FormaterDateHeure(laReservation.getEndTime(), formatUS));
 	}
     
-	/* @Test
-	public void testConsulterSalles(){
-	    	
-    } */
+	@Test
+	public void testConsulterSalles() {
+		Utilisateur unUtilisateur = new Utilisateur(0, 0, "giboired", "passeeeeeeeeeee", "");
+		String msg = Passerelle.consulterSalles(unUtilisateur);
+		assertEquals("Erreur : authentification incorrecte.", msg);
+		
+		unUtilisateur = new Utilisateur(0, 0, "cheminl", "passe", "");
+		msg = Passerelle.consulterSalles(unUtilisateur);
+		assertEquals("Erreur : authentification incorrecte.", msg);
+		
+		unUtilisateur = new Utilisateur(0, 0, "aubinv", "admin", "");
+		msg = Passerelle.consulterSalles(unUtilisateur);
+		assertEquals("14 salles disponibles en réservation", msg);
+	}
 	
 	/* @Test
 	public void testAnnulerReservation()
