@@ -100,7 +100,6 @@ public class PasserelleTest {
 
 	/* @Test
 	public void testChangerDeMdp(){
-		Utilisateur unUtilisateur = new Utilisateur(125, 1, "yvesz", "passe", "yves.zenels@gmail.com");
 		String msg = Passerelle.changerDeMdp("yvesz", "test", "test", "test");
 		assertEquals("Test Passerelle.changerDeMdp", "Erreur : authentification incorrecte.", msg);
 		
