@@ -40,8 +40,8 @@ public class Passerelle {
 	// Adresse de l'hébergeur Internet
 	// private static String _adresseHebergeur = "http://xxxxxxxxxxxxxxxx/m.m2l/services/";
 	// Adresse du localhost en cas d'exécution sur le poste de développement (projet de tests des classes)
-	// private static String _adresseHebergeur = "http://localhost/ws-php-morel/m.m2l/services/";
-	private static String _adresseHebergeur = "http://localhost/ws-php-paquet/m.m2l/services/";
+	private static String _adresseHebergeur = "http://localhost/ws-php-morel/m.m2l/services/";
+	// private static String _adresseHebergeur = "http://localhost/ws-php-paquet/m.m2l/services/";
 	
 	// Noms des services web déjà traités par la passerelle
 	private static String _urlConnecter = "Connecter.php";
@@ -269,9 +269,31 @@ public class Passerelle {
 		}
     }
 
-    /* public static String confirmerReservation(String idReservation){
-    	
-    } */
+    public static String confirmerReservation(String unNom, String unMdp, String unNumReservation){
+    	String reponse = "";
+    	try
+    	{	// préparation des paramètres à poster vers le service web
+    		ArrayList<NameValuePair> parametresPostes = new ArrayList<NameValuePair>();
+    		parametresPostes.add(new BasicNameValuePair("nom", unNom));
+    		parametresPostes.add(new BasicNameValuePair("mdp", unMdp));
+    		parametresPostes.add(new BasicNameValuePair("numreservation", unNumReservation));
+    		
+    		// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlConfirmerReservation;
+    		Document leDocument = getDocumentXML(urlDuServiceWeb, parametresPostes);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    }
 
     public static String demanderMdp(String nomUtilisateur){
     	String reponse = "";

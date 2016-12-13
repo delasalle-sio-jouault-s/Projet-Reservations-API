@@ -122,8 +122,19 @@ public class PasserelleTest {
     } */
 
 	/* @Test
-	public void testConfirmerReservation(){
-    	
+	public void testConfirmerReservation(){	
+		// 0 pour confirmé et 4 pour provisoire 
+		String msg = Passerelle.confirmerReservation("jouault", "passe", "50");
+		assertEquals("Test Passerelle.annulerReservation", "Erreur : numéro de réservation inexistant.", msg);
+		
+		msg = Passerelle.confirmerReservation("jouault", "passe", "3");
+		assertEquals("Test Passerelle.annulerReservation", "Erreur : vous n'êtes pas l'auteur de cette réservation.", msg);
+		
+		msg = Passerelle.confirmerReservation("jouault", "passe", "2");
+		assertEquals("Test Passerelle.annulerReservation", "Erreur : cette réservation est déjà confirmée.", msg);
+		
+		msg = Passerelle.confirmerReservation("jouault", "passe", "4");
+		assertEquals("Test Passerelle.annulerReservation", "Enregistrement effectué ; vous allez recevoir un mail de confirmation.", msg);
     } */
 
 	/* @Test
