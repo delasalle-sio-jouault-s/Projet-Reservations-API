@@ -40,8 +40,10 @@ public class Passerelle {
 	// Adresse de l'hébergeur Internet
 	// private static String _adresseHebergeur = "http://xxxxxxxxxxxxxxxx/m.m2l/services/";
 	// Adresse du localhost en cas d'exécution sur le poste de développement (projet de tests des classes)
-	private static String _adresseHebergeur = "http://localhost/ws-php-morel/m.m2l/services/";
+
+	// private static String _adresseHebergeur = "http://localhost/ws-php-morel/m.m2l/services/";
 	// private static String _adresseHebergeur = "http://localhost/ws-php-paquet/m.m2l/services/";
+	private static String _adresseHebergeur = "http://localhost/ws-php-jouault/m.m2l/services/";
 	
 	// Noms des services web déjà traités par la passerelle
 	private static String _urlConnecter = "Connecter.php";
@@ -211,9 +213,30 @@ public class Passerelle {
 		}
     }
     
-    /* public static String consulterSalles(){
-    	
-    } */
+    public static String consulterSalles(Utilisateur unUtilisateur) {
+    	String reponse = "";
+    	try
+    	{	// préparation des paramètres à poster vers le service web
+    		ArrayList<NameValuePair> parametresPostes = new ArrayList<NameValuePair>();
+    		parametresPostes.add(new BasicNameValuePair("nom", unUtilisateur.getName()));
+    		parametresPostes.add(new BasicNameValuePair("mdp", unUtilisateur.getPassword()));
+    		
+    		// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlConsulterSalles;
+    		Document leDocument = getDocumentXML(urlDuServiceWeb, parametresPostes);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    }
     
     public static String annulerReservation(String unNom, String unMdp, String unNumReservation)
     {
@@ -345,11 +368,54 @@ public class Passerelle {
 		}
     }
 
-    /* public static String testerDigicodeBatiment(String unDigicode){
-    	
-    } */
+    public static String testerDigicodeBatiment(String unDigicode)
+    {
+    	String reponse = "";
+    	try
+    	{	// préparation des paramètres à poster vers le service web
+    		ArrayList<NameValuePair> parametresPostes = new ArrayList<NameValuePair>();
+    		parametresPostes.add(new BasicNameValuePair("digicode", unDigicode));
+    		
+    		// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlTesterDigicodeBatiment;
+    		Document leDocument = getDocumentXML(urlDuServiceWeb, parametresPostes);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    }
     
-    /* public static String testerDigicodeSalle(String unNumSalle, String unDigicode){
-    	
-    } */
+    public static String testerDigicodeSalle(String unNumSalle, String unDigicode)
+    {
+    	String reponse = "";
+    	try
+    	{	// préparation des paramètres à poster vers le service web
+    		ArrayList<NameValuePair> parametresPostes = new ArrayList<NameValuePair>();
+    		parametresPostes.add(new BasicNameValuePair("numSalle", unNumSalle));
+    		parametresPostes.add(new BasicNameValuePair("digicode", unDigicode));
+    		
+    		// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlTesterDigicodeSalle;
+    		Document leDocument = getDocumentXML(urlDuServiceWeb, parametresPostes);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    } 
 }
