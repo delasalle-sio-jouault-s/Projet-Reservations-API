@@ -59,7 +59,7 @@ public class PasserelleTest {
 		return leFormat.format(uneDate);
 	}
 	
-	@Test
+	/* @Test
 	public void testConsulterReservations() {
 		Utilisateur unUtilisateur = new Utilisateur(0, 0, "giboired", "passeeeeeeeeeee", "");
 		String msg = Passerelle.consulterReservations(unUtilisateur);
@@ -86,7 +86,7 @@ public class PasserelleTest {
 		assertEquals(4, laReservation.getStatus());	
 		assertEquals("2017-06-21 18:00:00", FormaterDateHeure(laReservation.getStartTime(), formatUS));
 		assertEquals("2017-06-22 00:00:00", FormaterDateHeure(laReservation.getEndTime(), formatUS));
-	}
+	} */
     
 	@Test
 	public void testConsulterSalles() {
@@ -163,12 +163,22 @@ public class PasserelleTest {
 	} */
 
 	/* @Test
-	public void testTesterDigicodeBatiment(){
-    	
+	public void testTesterDigicodeBatiment()
+	{
+		msg = Passerelle.testerDigicodeBatiment("21CF74");
+		assertEquals("Test Passerelle.annulerReservation", "1", msg);
     } */
     
 	/* @Test
-	public void testTesterDigicodeSalle(){
-    	
+	public void testTesterDigicodeSalle()
+	{
+		String msg = Passerelle.testerDigicodeSalle("0", "21CF74");
+		assertEquals("Test Passerelle.testerDigicodeSalle", "0", msg);
+		
+		msg = Passerelle.testerDigicodeSalle("5", "0");
+		assertEquals("Test Passerelle.testerDigicodeSalle", "0", msg);
+		
+		msg = Passerelle.testerDigicodeSalle("5", "21CF74");
+		assertEquals("Test Passerelle.testerDigicodeSalle", "1", msg);
     } */
 }

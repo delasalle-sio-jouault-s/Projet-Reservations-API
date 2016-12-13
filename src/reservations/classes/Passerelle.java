@@ -345,11 +345,54 @@ public class Passerelle {
 		}
     }
 
-    /* public static String testerDigicodeBatiment(String unDigicode){
-    	
-    } */
+    public static String testerDigicodeBatiment(String unDigicode)
+    {
+    	String reponse = "";
+    	try
+    	{	// préparation des paramètres à poster vers le service web
+    		ArrayList<NameValuePair> parametresPostes = new ArrayList<NameValuePair>();
+    		parametresPostes.add(new BasicNameValuePair("digicode", unDigicode));
+    		
+    		// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlTesterDigicodeBatiment;
+    		Document leDocument = getDocumentXML(urlDuServiceWeb, parametresPostes);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    }
     
-    /* public static String testerDigicodeSalle(String unNumSalle, String unDigicode){
-    	
-    } */
+    public static String testerDigicodeSalle(String unNumSalle, String unDigicode)
+    {
+    	String reponse = "";
+    	try
+    	{	// préparation des paramètres à poster vers le service web
+    		ArrayList<NameValuePair> parametresPostes = new ArrayList<NameValuePair>();
+    		parametresPostes.add(new BasicNameValuePair("numSalle", unNumSalle));
+    		parametresPostes.add(new BasicNameValuePair("digicode", unDigicode));
+    		
+    		// création d'un nouveau document XML à partir de l'URL du service web et des paramètres
+    		String urlDuServiceWeb = _adresseHebergeur + _urlTesterDigicodeSalle;
+    		Document leDocument = getDocumentXML(urlDuServiceWeb, parametresPostes);
+    		
+    		// parsing du flux XML
+    		Element racine = (Element) leDocument.getElementsByTagName("data").item(0);
+    		reponse = racine.getElementsByTagName("reponse").item(0).getTextContent();
+    		
+    		// retour de la réponse du service web
+    		return reponse;
+    	}
+    	catch (Exception ex)
+    	{	String msg = "Erreur : " + ex.getMessage();
+			return msg;
+		}
+    } 
 }
